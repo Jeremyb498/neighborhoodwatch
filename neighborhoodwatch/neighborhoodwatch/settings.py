@@ -75,11 +75,8 @@ WSGI_APPLICATION = 'neighborhoodwatch.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'oracle.cise.ufl.edu:1521/orcl',
-        'USER': 'esteban.medero',
-        'PASSWORD': 'a6K5TDvHuejguhGFgAGBhEKI',
-        'HOST': 'oracle.cise.ufl.edu:1521/orcl'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 
