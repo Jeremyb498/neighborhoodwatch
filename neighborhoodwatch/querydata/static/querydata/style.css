@@ -1,0 +1,74 @@
+.float-container {
+    height: 80vh;
+    margin: 5px;
+}
+
+.float-child {
+    overflow-y: scroll;
+    background-color: #E4E9FD !important;
+    border: 1px solid gray;
+    width: 18vw;
+    margin: 0;
+    padding: 0 !important;
+    float: left;
+    height: 90vh !important;
+}  
+
+.col
+{
+    border: 1px solid gray;
+    margin: 0 !important;
+    padding: 10px;
+}
+
+.query-sect
+{
+    width: 80vw !important;
+}
+
+body {
+    background-color: #E4E9FD;
+    height: 100vh;
+    font-family: 'Share Tech Mono', sans-serif;
+    font-family: 'helvetica neue';
+  }
+
+#header, .navbar
+{
+  font-family: 'Share Tech Mono', sans-serif;
+    align-items: center;
+    height: 10vh;
+    justify-content: center;
+    background-color: #E4E9FD;
+    border-bottom: black; 
+}
+
+.logo
+{
+  position: absolute;
+  margin: 10px;
+  z-index: 2;
+}
+
+.navbar-nav, .header-logo
+{
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background-color: #E4E9FD;
+}
+
+.nav-link
+{
+    font-size: 25px;
+    margin: 10px;
+    display: flex !important;
+    color: black !important;
+}
+  
+.titlebg
+{
+    font-family: 'Share Tech Mono', sans-serif;
+    margin-top: 15vh;
+    width: 100vw;
+}

@@ -14,7 +14,7 @@ print("Successfully connected to Oracle Database")
 
 cursor = connection.cursor()
 
-crimes = "crimes"
+crimes = "otherproperty"
 
 # Now query the rows back
 cursor.execute("select * from " + crimes)
