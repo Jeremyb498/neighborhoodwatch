@@ -17,8 +17,14 @@ If you're unfamiliar with Django I definitely recommend going through the tutori
 you'll get the necessary essentials within an hour or two. 
 
 ******IMPORTANT NOTE*******
-The tutorial will cover using a database native with Django. However for the implementation for this project since i am working on apple silicon which runs
+The tutorial will cover using a database native with Django. However for the implementation, since i am working on apple silicon which runs
 on ARM I cannot use the necessary cx_oracle module or the oracle instant client since they run on x86. But do not fret if you're in the same boat or thinking about manually integrating a database stresses you out its not too difficult.
-**************************
+**
+Remember to fork your own repository before getting started and work on your own branch before making any merges.**
+
+fork your own repository and clone it in any directory you'd like. 
+
+
+
 
 
