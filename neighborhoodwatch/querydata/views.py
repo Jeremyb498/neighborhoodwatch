@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template import loader
 import getpass
 import oracledb
 
@@ -13,16 +14,23 @@ print("Successfully connected to Oracle Database")
 
 cursor = connection.cursor()
 
-crimes = "Crimes"
+crimes = "crimes"
 
 # Now query the rows back
 cursor.execute("select * from " + crimes)
+columnnames = []
+
+for item in cursor.description:
+    columnnames.append(item[0])
+
 res = cursor.fetchall()
-page = ""
-for row in res:
-    for item in row:
-        page = page + str(item) + ", "
-    page += "\n"
 
 def index(request):
-    return HttpResponse(page)
+    query = res
+    template = loader.get_template("querydata/index.html")
+    context = {
+        "query" : query,
+        "columns" : columnnames
+    }
+    return HttpResponse(template.render(context, request))
+
