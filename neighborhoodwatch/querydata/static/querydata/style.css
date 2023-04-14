@@ -5,10 +5,11 @@
 
 .float-child {
     overflow-y: scroll;
+    overflow-x: scroll;
     background-color: #E4E9FD !important;
     border: 1px solid gray;
     width: 18vw;
-    margin: 0;
+    margin: 2px;
     padding: 0 !important;
     float: left;
     height: 90vh !important;
@@ -19,6 +20,14 @@
     border: 1px solid gray;
     margin: 0 !important;
     padding: 10px;
+}
+
+.col-names
+{
+    font-size: 10px; 
+    margin: 5px;  
+    width: 30px; 
+    word-wrap: break-word;
 }
 
 .query-sect
@@ -62,7 +71,7 @@ body {
 {
     font-size: 25px;
     margin: 10px;
-    display: flex !important;
+  
     color: black !important;
 }
   
