@@ -39,12 +39,11 @@ body {
     background-color: #E4E9FD;
     height: 100vh;
     font-family: 'Share Tech Mono', sans-serif;
-    font-family: 'helvetica neue';
   }
 
 #header, .navbar
 {
-  font-family: 'Share Tech Mono', sans-serif;
+    font-family: 'Share Tech Mono', sans-serif;
     align-items: center;
     height: 10vh;
     justify-content: center;
@@ -80,4 +79,26 @@ body {
     font-family: 'Share Tech Mono', sans-serif;
     margin-top: 15vh;
     width: 100vw;
+}
+
+.inline-field label
+{
+    float: left;
+    margin-left: 10px;
+}
+
+.inline-field input
+{
+   margin-left: 10px;
+}
+
+.inline-field
+{
+    display: flex !important;
+    float: left;
+}
+
+.dropdown-menu
+{
+    width: 100% !important;
 }
