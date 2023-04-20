@@ -50,72 +50,220 @@
     </section>
     <div class="float-container">
         <div class="float-child flex-shrink-0 p-3 bg-white ">
-            <a href="/querydata" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+            <a href="" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
             <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-5 fw-semibold">Query Selector</span>
             </a>
-            <form action="{% url 'tableSelection' %}" method="post">
+
+            <ul class="list-unstyled ps-0">
+            
+            {% comment %} sets up the selection form for selecting states and agency types {% endcomment %}
+            {% if states %}
+                <form action="{% url 'agencySelection' %}" method="post">
                 {% csrf_token %}
                 <fieldset>
-            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select States
+                        </button>
+                        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            {% for item in states %}
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> {{item}} </label>
+                                    <input type="checkbox" class="dropdown-item check" id="selection" value="{{item}}" name="selection">
+                                </div><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Agency Type
+                        </button>
+                        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            {% for location in agencytypes %}
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> {{location}} </label>
+                                    <input type="checkbox" class="dropdown-item check" id="typeAgency" value="{{location}}" name="typeAgency">
+                                </div><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                </fieldset>
+                <input type="submit" value="Submit">
+                </form>
+            {% endif %}
+
+            {% comment %} sets up the selection form for selecting crime family and specific agencies {% endcomment %}
+            {% if agencynames %}
+                    <form action="{% url 'parameterSelection' %}" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                    <li class="mb-1">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Agencies
+                            </button>
+                            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                                {% for names in agencynames %}
+                                    <div class="inline-field">
+                                        <label for="dropdown-item"> {{names}} </label>
+                                        <input type="checkbox" class="dropdown-item check" id="nameAgency" value="{{names}}" name="nameAgency">
+                                    </div><br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Crime Family
+                            </button>
+                            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> Crimes Against Property </label>
+                                    <input type="checkbox" class="dropdown-item check" id="crimeFamily" value="CRIMESAGAINSTPROPERTY" name="crimeFamily">
+                                </div><br>
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> Crimes Against Persons </label>
+                                    <input type="checkbox" class="dropdown-item check" id="crimeFamily" value="CRIMESAGAINSTPERSONS" name="crimeFamily">
+                                </div><br>
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> Crimes Against Society </label>
+                                    <input type="checkbox" class="dropdown-item check" id="crimeFamily" value="CRIMESAGAINSTSOCIETY" name="crimeFamily">
+                                </div><br>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-1">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Years
+                            </button>
+                            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> 2016 </label>
+                                    <input type="checkbox" class="dropdown-item check" id="year" value="2016" name="year">
+                                </div><br>
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> 2017 </label>
+                                    <input type="checkbox" class="dropdown-item check" id="year" value="2017" name="year">
+                                </div><br>
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> 2018 </label>
+                                    <input type="checkbox" class="dropdown-item check" id="year" value="2018" name="year">
+                                </div><br>
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> 2019 </label>
+                                    <input type="checkbox" class="dropdown-item check" id="year" value="2019" name="year">
+                                </div><br>
+                            </div>
+                        </div>
+                    </li>
+                    {% comment %} passes along query information from the previous page as a hidden field {% endcomment %}
+                    {% for states in selectedStates%}
+                        <input type="hidden" id="state" value="{{states}}" name="state">
+                    {% endfor %}
+                    {% for types in selectAgencyType%}
+                        <input type="hidden" id="agencyType" value="{{types}}" name="agencyType">
+                    {% endfor %}
+                </fieldset>
+                <input type="submit" value="Submit">
+                </form>
+           {% endif %}
+
+            <li class="border-top my-3"></li>
+            <p> Current selections </p>
+            <li class="border-top my-3"></li>
+            {%if selectedStates %}
             <li class="mb-1">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Select Tables
+                        Selected States
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {% for row in query %}
-                            {% for item in row %}
+                    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                        {% for item in selectedStates %}
                             <div class="inline-field">
                                 <label for="dropdown-item"> {{item}} </label>
-                                <input type="checkbox" class="dropdown-item" id="selection" value="{{item}}" name="selection">
                             </div><br>
-                            {% endfor %}
                         {% endfor %}
                     </div>
-                  </div>
+                </div>
             </li>
+            {% endif %}
+            
+            {%if selectAgencyType %}
             <li class="mb-1">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Select Columns
+                        Selected Agency Types
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                        {% for type in selectAgencyType %}
+                            <div class="inline-field">
+                                <label for="dropdown-item"> {{type}} </label>
+                            </div><br>
+                        {% endfor %}
                     </div>
-                  </div>
+                </div>
             </li>
+            {% endif %}
+
+            {%if selectedAgencies %}
             <li class="mb-1">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Set Parameters
+                        Selected Agencies
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                        {% for agencies in selectedAgencies %}
+                            <div class="inline-field">
+                                <label for="dropdown-item"> {{agencies}} </label>
+                            </div><br>
+                        {% endfor %}
                     </div>
-                  </div>
+                </div>
             </li>
+            {% endif %}
+
+            {%if selectedCrimeFamily %}
             <li class="mb-1">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Aggregation
+                        Selected Crime Families
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                        {% for families in selectedCrimeFamily %}
+                            <div class="inline-field">
+                                <label for="dropdown-item"> {{families}} </label>
+                            </div><br>
+                        {% endfor %}
                     </div>
-                  </div>
+                </div>
             </li>
-            <li class="border-top my-3"></li>
+            {% endif %}
+
+            {%if selectedYears %}
+            <li class="mb-1">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Selected Years
+                    </button>
+                    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                        {% for years in selectedYears %}
+                            <div class="inline-field">
+                                <label for="dropdown-item"> {{years}} </label>
+                            </div><br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+            {% endif %}
             </ul>
-        </fieldset>
-        <input type="submit" value="Query">
-        </form>
+       
         </div>
         
         <div  class="float-child query-sect">
