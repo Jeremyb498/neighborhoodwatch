@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'querydata/style.css' %}">
+    <link rel="stylesheet" href="{% static 'querydata/style.css' %}">
 
 </head>
 
@@ -50,7 +51,7 @@
     </section>
     <div class="float-container">
         <div class="float-child flex-shrink-0 p-3 bg-white ">
-            <a href="" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+            <a class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
             <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-5 fw-semibold">Query Selector</span>
             </a>
@@ -68,6 +69,10 @@
                             Select States
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="inline-field">
+                                <label for="dropdown-item"> Select All </label>
+                                <input type="checkbox" class="dropdown-item check" onclick="select_all_states()">
+                            </div><br>
                             {% for item in states %}
                                 <div class="inline-field">
                                     <label for="dropdown-item"> {{item}} </label>
@@ -83,12 +88,45 @@
                         Select Agency Type
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="inline-field">
+                                <label for="dropdown-item"> Select All </label>
+                                <input type="checkbox" class="dropdown-item check" onclick="select_all_typeAgency()">
+                            </div><br>
                             {% for location in agencytypes %}
                                 <div class="inline-field">
                                     <label for="dropdown-item"> {{location}} </label>
                                     <input type="checkbox" class="dropdown-item check" id="typeAgency" value="{{location}}" name="typeAgency">
                                 </div><br>
                             {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Years
+                        </button>
+                        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="inline-field">
+                                <label for="dropdown-item"> Select All </label>
+                                <input type="checkbox" class="dropdown-item check" onclick="select_all_year()">
+                            </div><br>
+                            <div class="inline-field">
+                                <label for="dropdown-item"> 2016 </label>
+                                <input type="checkbox" class="dropdown-item check" id="year" value="2016" name="year">
+                            </div><br>
+                            <div class="inline-field">
+                                <label for="dropdown-item"> 2017 </label>
+                                <input type="checkbox" class="dropdown-item check" id="year" value="2017" name="year">
+                            </div><br>
+                            <div class="inline-field">
+                                <label for="dropdown-item"> 2018 </label>
+                                <input type="checkbox" class="dropdown-item check" id="year" value="2018" name="year">
+                            </div><br>
+                            <div class="inline-field">
+                                <label for="dropdown-item"> 2019 </label>
+                                <input type="checkbox" class="dropdown-item check" id="year" value="2019" name="year">
+                            </div><br>
                         </div>
                     </div>
                 </li>
@@ -108,6 +146,10 @@
                             Select Agencies
                             </button>
                             <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="inline-field">
+                                    <label for="dropdown-item"> Select All </label>
+                                    <input type="checkbox" class="dropdown-item check" onclick="select_all_agency()">
+                                </div><br>
                                 {% for names in agencynames %}
                                     <div class="inline-field">
                                         <label for="dropdown-item"> {{names}} </label>
@@ -124,6 +166,10 @@
                             </button>
                             <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="inline-field">
+                                    <label for="dropdown-item"> Select All </label>
+                                    <input type="checkbox" class="dropdown-item check" onclick="select_all_crime()">
+                                </div><br>
+                                <div class="inline-field">
                                     <label for="dropdown-item"> Crimes Against Property </label>
                                     <input type="checkbox" class="dropdown-item check" id="crimeFamily" value="CRIMESAGAINSTPROPERTY" name="crimeFamily">
                                 </div><br>
@@ -138,37 +184,15 @@
                             </div>
                         </div>
                     </li>
-                    <li class="mb-1">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Years
-                            </button>
-                            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                                <div class="inline-field">
-                                    <label for="dropdown-item"> 2016 </label>
-                                    <input type="checkbox" class="dropdown-item check" id="year" value="2016" name="year">
-                                </div><br>
-                                <div class="inline-field">
-                                    <label for="dropdown-item"> 2017 </label>
-                                    <input type="checkbox" class="dropdown-item check" id="year" value="2017" name="year">
-                                </div><br>
-                                <div class="inline-field">
-                                    <label for="dropdown-item"> 2018 </label>
-                                    <input type="checkbox" class="dropdown-item check" id="year" value="2018" name="year">
-                                </div><br>
-                                <div class="inline-field">
-                                    <label for="dropdown-item"> 2019 </label>
-                                    <input type="checkbox" class="dropdown-item check" id="year" value="2019" name="year">
-                                </div><br>
-                            </div>
-                        </div>
-                    </li>
                     {% comment %} passes along query information from the previous page as a hidden field {% endcomment %}
                     {% for states in selectedStates%}
                         <input type="hidden" id="state" value="{{states}}" name="state">
                     {% endfor %}
                     {% for types in selectAgencyType%}
                         <input type="hidden" id="agencyType" value="{{types}}" name="agencyType">
+                    {% endfor %}
+                    {% for years in selectedYears %}
+                        <input type="hidden" id="year" value="{{years}}" name="year">
                     {% endfor %}
                 </fieldset>
                 <input type="submit" value="Submit">
@@ -266,6 +290,9 @@
        
         </div>
         
+        {% if finalQuery%}
+
+        {% else %}
         <div  class="float-child query-sect">
             {% if query %}
             <div class="row">
@@ -282,14 +309,16 @@
                 </div>
                     </br>
                 {% endfor %}
+            </div>
         </div>
-    </div>
         {% else %}
-            <p>No queries have been submitted at this time.</p>
+            <p>Sorry either no data exists for your current query or you havent submitted one yet.</p>
             <p>Take a moment to fill out the necessary fields and resubmit.</p>
-    {% endif %}
+        {% endif %}
+        {% endif %}
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="{% static 'querydata/query.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
